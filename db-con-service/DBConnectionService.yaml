@@ -40,6 +40,16 @@ paths:
                     avgWithdrawal:
                       type: integer
                       description: Average cannabis withdrawal per member.
+        400:
+          description: Query lacks sufficient query parameter (Month specification).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid month specified"
         500:
           description: Internal server error occurred
           content:
