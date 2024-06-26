@@ -15,31 +15,52 @@ paths:
           name: month
           schema:
             type: string
-          description: Specifies which monthly data is retrieved.
+          description: Specifies which monthly data is retrieved. (DD.MM.YYYY)
       responses:
         200:
           description: Successful query response with standard data.
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    monthlyWithdrawal:
-                      type: integer
-                      description: Total cannabis withdraw in the specified month.
-                    dailyWithdrawal:
-                      type: array
-                      items:
-                        type: integer
-                      description: Withdrawal per day
-                    memberCount:
-                      type: integer
-                      description: Total number of members at the end of the specified month.
-                    avgWithdrawal:
-                      type: integer
-                      description: Average cannabis withdrawal per member.
+                type: object
+                properties:
+                  withdrawals:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        withdrawalId:
+                          type: string
+                          description: Id of the withdrawal
+                        member:
+                          type: string
+                          description: Name of the Member that withdrew
+                        time:
+                          type: date
+                          description: Time of withdrawal
+                        amount:
+                          type: integer
+                          description: Amount withdrawn
+                    description: All withdrawals of the specified month
+                  totalAmount:
+                    type: integer
+                    description: Total amount of cannabis withdrawal in specified month
+                  memberCount:
+                    type: integer
+                    description: Total amount of members right now
+                  avgPerMember:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        member:
+                          type: string
+                          description: Name of member
+                        average:
+                          type: integer
+                          description: Average amount withdrawn by this member
+                    description: All members and their average withdrawal
+
         400:
           description: Query lacks sufficient query parameter (Month specification).
           content:
@@ -60,50 +81,3 @@ paths:
                   message:
                     type: string
                     example: "Internal server error occurred"
-  /query:
-    post:
-      summary: Individual Query
-      description: Queries the database with arguments specified in the request. Returns 2D-Array structured data. SQL-Injection-Safe.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                queryString:
-                  type: string
-                  description: Detailed sql to be run on the DB. Injection-Safe
-      responses:
-        200:
-          description: Successful query response with data.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties: {}
-                  example:
-                    id: "1"
-                    name: "John Doe"
-        400:
-          description: Query lacks sufficient input parameters.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Invalid input parameters"
-        500:
-          description: Internal server error occured
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Internal server error occured"
