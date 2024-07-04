@@ -15,7 +15,7 @@ paths:
           name: month
           schema:
             type: string
-          description: Specifies which monthly data is retrieved. (DD.MM.YYYY)
+          description: Specifies which monthly data is retrieved. (YYYY-MM-DD)
       responses:
         200:
           description: Successful query response with standard data.

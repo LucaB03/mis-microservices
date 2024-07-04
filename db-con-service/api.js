@@ -7,14 +7,13 @@ global.dbConnected = false;
 
 //Standard query for report generation
 api.get('/report', async (req, res) => {
-    let pattern = new RegExp("^(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[0-2])\\.(\\d{4})$");
+    let pattern = new RegExp("^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$");
     if (!pattern.test(req.get("month"))) {
         res.status(400);
         res.json("{message: 'Invalid month specified'}");
     } else if (global.dbConnected) {
-        await getReportData();
         res.status(200);
-        res.json(await getReportData());
+        res.json(await getReportData(req.get("month")));
     } else {
         res.status(500);
         res.json("{message: 'Internal server error occurred'}");

@@ -17,13 +17,13 @@ module.exports = {
             return false;
         }
     },
-    getReportData: async function() {
+    getReportData: async function(month) {
         let db = await mongoose.connection.db;
-        let lastDay = new Date();
+        let lastDay = new Date(month);
         lastDay.setMonth(lastDay.getMonth() + 1);
         lastDay.setDate(1);
         lastDay.setDate(lastDay.getDate() - 1);
-        let firstDay = new Date();
+        let firstDay = new Date(month);
         firstDay.setDate(1);
 
         //Format of the returned data
