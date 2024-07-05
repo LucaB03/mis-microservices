@@ -1,10 +1,15 @@
 const express = require('express');
+const cors = require('cors');
 const { createReport } = require("./pdfCreator");
 const { resolve } = require("node:path");
 const port = process.env.PORT || 4000;
 const reportFilePath = process.env.REPORT_FILE_PATH || process.cwd();
 const api = express();
 
+api.use(cors({
+    origin: "*",
+    exposedHeaders: "*"
+}));
 
 api.get('/create', async (req, res) => {
     let pattern = new RegExp("^\\d{4}-(0[1-9]|1[0-2])$");
@@ -17,6 +22,7 @@ api.get('/create', async (req, res) => {
     } else if (await createReport(req.get("month"))) {
         res.status(200);
         let path = resolve(reportFilePath, "report" + req.get("month") + ".pdf");
+        res.header("filename", "report" + req.get("month") + ".pdf");
         res.sendFile(path);
     } else {
         res.status(500);

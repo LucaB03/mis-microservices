@@ -18,7 +18,7 @@ paths:
           description: Specifies which report of what month should be created (YYYY-MM). Date can't be in the future.
       responses:
         200:
-          description: Successful creation of report. Sends report as pdf
+          description: Successful creation of report. Sends report as pdf. Sends file name as header.
           content:
             application/pdf:
               schema:
