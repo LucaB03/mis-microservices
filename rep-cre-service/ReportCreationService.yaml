@@ -1,9 +1,46 @@
 openapi: 3.0.3
 info:
-  title: Title
-  description: Title
+  title: Report Creation API
+  description: API of the report creation api.
   version: 1.0.0
 servers:
   - url: 'https'
 paths:
-  
+  /create:
+    get:
+      summary: Standard Query
+      description: Creates a report of the specified month.
+      parameters:
+        - in: header
+          name: month
+          schema:
+            type: string
+          description: Specifies which report of what month should be created (YYYY-MM). Date can't be in the future.
+      responses:
+        200:
+          description: Successful creation of report. Sends report as pdf
+          content:
+            application/pdf:
+              schema:
+                type: string
+                example: Monthly report data.
+        400:
+          description: Request lacks correct month specification.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid month specified"
+        500:
+          description: Internal server error occurred
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Internal server error occurred"

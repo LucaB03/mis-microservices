@@ -24,8 +24,6 @@ module.exports = {
         lastDay.setDate(1);
         lastDay.setDate(lastDay.getDate() - 1);
         let firstDay = new Date(month);
-        firstDay.setDate(1);
-
         //Format of the returned data
         let data = {"withdrawals": [], "totalAmount": 0, "memberCount": 0, "avgPerMember": []};
         //Adding all withdrawals to data and computing total amount
