@@ -10,10 +10,13 @@ The BPMN used for this assignment describes the creation and download of a month
 I seperated the application into the following services. 
 - Database Connection Service
 - Report Creation Service
-- Scheduling Service
 
 # 4. Other parts
-Due to the nature of basing the Business process on a Webapp, we also need a functioning Backend and Frontend.
+Due to the nature of basing the Business process on a Webapp, we also need a functioning Frontend.
+For that, I chose Angular.
 
-# 5. Solution
-Lorem ipsum...
+# 5. Usage
+1. Clone the repository and init the single node projects (db-con-service, rep-cre-service, frontend-microservices).
+2. Run a mongod server with a copy of the db (not included in the repo)/make your own.
+3. Run all 3 node servers
+4. Open http://localhost:4200
